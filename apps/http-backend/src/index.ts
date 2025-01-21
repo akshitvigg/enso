@@ -43,23 +43,66 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/signin", (req, res) => {
-  const parsedData = CreateSignInSchema.safeParse(req.body());
+app.post("/signin", async (req, res) => {
+  const parsedData = CreateSignInSchema.safeParse(req.body);
   if (!parsedData.success) {
     return;
   }
 
-  con;
+  try {
+    const user = await prismaClient.user.findFirst({
+      where: {
+        email: parsedData.data.email,
+        password: parsedData.data.password,
+      },
+    });
+
+    if (!user) {
+      res.status(411).json({
+        warning: "not authorized",
+      });
+      return;
+    }
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+    res.json({
+      token: token,
+    });
+  } catch (e) {
+    res.status(400).json({
+      warning: "error while signing in",
+    });
+  }
 });
 
-app.post("/createroom", auth, (req, res) => {
-  const data = CreateRoomSchema.safeParse(req.body);
-  if (!data.success) {
+app.post("/createroom", auth, async (req, res) => {
+  const Parseddata = CreateRoomSchema.safeParse(req.body);
+  if (!Parseddata.success) {
+    res.json({
+      warning: "parse cancelled",
+      err: Parseddata.error,
+    });
     return;
   }
-  res.json({
-    message: "fine",
-  });
+
+  const userId = req.userId;
+  try {
+    const room = await prismaClient.room.create({
+      data: {
+        slug: Parseddata.data.slug,
+        adminId: userId || "",
+      },
+    });
+    console.log("dsd");
+
+    res.json({
+      roomid: room.id,
+    });
+  } catch (e) {
+    res.json({
+      warning: "error while creating room",
+    });
+  }
 });
 
 app.listen(3002);
