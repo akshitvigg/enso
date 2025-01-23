@@ -18,7 +18,8 @@
     "zod": "^3.24.1",
     "@repo/backend-common": "workspace:*",
     "@repo/common": "workspace:*",
-    "@repo/db": "workspace:*"
+    "@repo/db": "workspace:*",
+    "@repo/ui": "workspace:*"
   },
   "keywords": [],
   "author": "",
