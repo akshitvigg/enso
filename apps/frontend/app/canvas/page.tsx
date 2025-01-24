@@ -19,7 +19,7 @@ export default function Canvas() {
 
   return (
     <div className=" h-screen bg-fuchsia-300">
-      <canvas ref={canvasRef} width={1000} height={1000}></canvas>
+      <canvas ref={canvasRef} width={500} height={500}></canvas>
     </div>
   );
 }
