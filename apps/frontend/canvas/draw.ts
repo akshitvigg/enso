@@ -16,19 +16,14 @@ export function Draw(canvas: HTMLCanvasElement) {
 
   canvas.addEventListener("mouseup", (e) => {
     clicked = false;
-    console.log(e.clientX);
-    console.log(e.clientY);
   });
 
   canvas.addEventListener("mousemove", (e) => {
     if (clicked) {
       const width = e.clientX - startX;
       const height = e.clientY - startY;
-      console.log(e.clientX);
-      console.log(e.clientY);
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "rgba(255,255,255)";
+      ctx.strokeStyle = "rgba(33,235,55)";
       ctx.strokeRect(startX, startY, width, height);
     }
   });
