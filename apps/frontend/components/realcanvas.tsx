@@ -18,9 +18,12 @@ export function Canvas({
     }
   }, [canvasRef]);
 
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
   return (
     <div>
-      <canvas ref={canvasRef} width="2000" height={"2000"}></canvas>
+      <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>
   );
 }
