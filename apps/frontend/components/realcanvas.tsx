@@ -22,7 +22,7 @@ export function Canvas({
   const height = window.innerHeight;
 
   return (
-    <div>
+    <div className=" overflow-hidden">
       <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>
   );
