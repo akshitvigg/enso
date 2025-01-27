@@ -14,7 +14,7 @@ export function Canvas({
   socket: WebSocket;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [currBtn, setcurrBtn] = useState<shapeType>();
+  const [currBtn, setcurrBtn] = useState<shapeType>("r");
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -26,15 +26,16 @@ export function Canvas({
   const height = window.innerHeight;
 
   return (
-    <div className=" overflow-hidden">
+    <div className=" ">
+      <ToolBar setcurrBtn={setcurrBtn} currBtn={currBtn} />
       <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>
   );
 }
 
-function ToolBar() {
+function ToolBar({ setcurrBtn, currBtn }: any) {
   return (
-    <div>
+    <div className=" flex justify-center">
       <div className=" bg-gray-900 p-1 rounded-lg fixed w-72  top-6">
         <div className="gap-8  flex justify-center">
           <div
