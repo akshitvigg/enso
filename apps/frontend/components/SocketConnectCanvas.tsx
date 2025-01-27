@@ -5,9 +5,11 @@ import { Canvas } from "./realcanvas";
 import { WS_URL } from "@/config";
 import { Circle, Pencil, RectangleHorizontalIcon } from "lucide-react";
 
+type shapeType = "r" | "c" | "l";
+
 export function SocketCanvas({ roomId }: { roomId: string }) {
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [currBtn, setcurrBtn] = useState<string>("");
+  const [currBtn, setcurrBtn] = useState<shapeType>();
 
   useEffect(() => {
     const ws = new WebSocket(
