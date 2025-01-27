@@ -33,7 +33,13 @@ export function Canvas({
   );
 }
 
-function ToolBar({ setcurrBtn, currBtn }: any) {
+function ToolBar({
+  setcurrBtn,
+  currBtn,
+}: {
+  currBtn: shapeType;
+  setcurrBtn: (s: shapeType) => void;
+}) {
   return (
     <div className=" flex justify-center">
       <div className=" bg-gray-900 p-1 rounded-lg fixed w-72  top-6">
