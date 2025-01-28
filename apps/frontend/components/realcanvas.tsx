@@ -4,7 +4,7 @@ import { Draw } from "@/canvasLogic/draw";
 import { Circle, Pencil, RectangleHorizontalIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-type shapeType = "r" | "c" | "l";
+type ToolsType = "r" | "c" | "l";
 
 export function Canvas({
   roomId,
@@ -14,7 +14,7 @@ export function Canvas({
   socket: WebSocket;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [currBtn, setcurrBtn] = useState<shapeType>("r");
+  const [currBtn, setcurrBtn] = useState<ToolsType>("r");
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -37,8 +37,8 @@ function ToolBar({
   setcurrBtn,
   currBtn,
 }: {
-  currBtn: shapeType;
-  setcurrBtn: (s: shapeType) => void;
+  currBtn: ToolsType;
+  setcurrBtn: (s: ToolsType) => void;
 }) {
   return (
     <div className=" flex justify-center">
