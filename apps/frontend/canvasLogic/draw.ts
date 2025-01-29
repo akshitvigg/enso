@@ -40,8 +40,8 @@ export async function Draw(
     const message = JSON.parse(e.data);
 
     if (message.type === "chat") {
-      const parsedStu = JSON.parse(message.message);
-      existingShapes.push(parsedStu);
+      const parsedShape = JSON.parse(message.message);
+      existingShapes.push(parsedShape.shape);
       clearShape(existingShapes, canvas, ctx);
     }
   };
