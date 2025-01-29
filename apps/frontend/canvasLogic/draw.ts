@@ -1,13 +1,27 @@
 import { WEB_URL } from "@/config";
 import axios from "axios";
 
-type Shape = {
-  type: "rect";
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
+type Shape =
+  | {
+      type: "rect";
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    }
+  | {
+      type: "circle";
+      centerX: number;
+      centerY: number;
+      radius: number;
+    }
+  | {
+      type: "pencil";
+      startx: number;
+      startY: number;
+      endx: number;
+      endy: number;
+    };
 
 export async function Draw(
   canvas: HTMLCanvasElement,
@@ -22,16 +36,15 @@ export async function Draw(
     return;
   }
 
-  socket.onmessage = (event) => {
-    const message = JSON.parse(event.data);
+  socket.onmessage = (e) => {
+    const message = JSON.parse(e.data);
 
-    if (message.type == "chat") {
-      const parsedShape = JSON.parse(message.message);
-      existingShapes.push(parsedShape.shape);
+    if (message.type === "chat") {
+      const parsedStu = JSON.parse(message.message);
+      existingShapes.push(parsedStu);
       clearShape(existingShapes, canvas, ctx);
     }
   };
-
   clearShape(existingShapes, canvas, ctx);
 
   let startX = 0;
@@ -49,14 +62,17 @@ export async function Draw(
     clicked = false;
     const width = e.clientX - startX;
     const height = e.clientY - startY;
-    let shape: Shape = {
-      type: "rect",
-      x: startX,
-      y: startY,
-      width,
-      height,
-    };
-
+    // const selectedTool = window.selectedTool;
+    let shape: Shape | null = null;
+    // if (selectedTool === "rect") {
+    //   shape = {
+    //     type: "rect",
+    //     x: startX,
+    //     y: startY,
+    //     width,
+    //     height,
+    //   }
+    // }
     if (!shape) {
       return;
     }
