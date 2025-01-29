@@ -65,13 +65,13 @@ export async function Draw(
     // const selectedTool = window.selectedTool;
     let shape: Shape | null = null;
     // if (selectedTool === "rect") {
-    //   shape = {
-    //     type: "rect",
-    //     x: startX,
-    //     y: startY,
-    //     width,
-    //     height,
-    //   }
+    shape = {
+      type: "rect",
+      x: startX,
+      y: startY,
+      width,
+      height,
+    };
     // }
     if (!shape) {
       return;
