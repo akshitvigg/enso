@@ -14,7 +14,7 @@ export function Canvas({
   socket: WebSocket;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [currBtn, setcurrBtn] = useState<ToolsType>("r");
+  const [selectedTool, setselectedTool] = useState<ToolsType>("r");
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -27,43 +27,43 @@ export function Canvas({
 
   return (
     <div className=" ">
-      <ToolBar setcurrBtn={setcurrBtn} currBtn={currBtn} />
+      <ToolBar setselectedTool={setselectedTool} selectedTool={selectedTool} />
       <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>
   );
 }
 
 function ToolBar({
-  setcurrBtn,
-  currBtn,
+  setselectedTool,
+  selectedTool,
 }: {
-  currBtn: ToolsType;
-  setcurrBtn: (s: ToolsType) => void;
+  selectedTool: ToolsType;
+  setselectedTool: (s: ToolsType) => void;
 }) {
   return (
     <div className=" flex justify-center">
       <div className=" bg-gray-900 p-1 rounded-lg fixed w-72  top-6">
         <div className="gap-8  flex justify-center">
           <div
-            onClick={() => setcurrBtn("r")}
+            onClick={() => setselectedTool("r")}
             className={` p-2 hover:bg-gray-600`}
           >
             <RectangleHorizontalIcon
-              color={`${currBtn === "r" ? "red" : "white"}`}
+              color={`${selectedTool === "r" ? "red" : "white"}`}
             />
           </div>
           <div
-            onClick={() => setcurrBtn("c")}
+            onClick={() => setselectedTool("c")}
             className={`p-2 hover:bg-gray-600`}
           >
-            <Circle color={`${currBtn === "c" ? "red" : "white"}`} />
+            <Circle color={`${selectedTool === "c" ? "red" : "white"}`} />
           </div>
           <div
             className={`p-2 hover:bg-gray-600`}
-            color={`${currBtn === "l" ? "red" : "white"}`}
-            onClick={() => setcurrBtn("l")}
+            color={`${selectedTool === "l" ? "red" : "white"}`}
+            onClick={() => setselectedTool("l")}
           >
-            <Pencil color={`${currBtn === "l" ? "red" : "white"}`} />
+            <Pencil color={`${selectedTool === "l" ? "red" : "white"}`} />
           </div>
         </div>
       </div>
