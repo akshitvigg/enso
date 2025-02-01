@@ -1,5 +1,6 @@
 import { WEB_URL } from "@/config";
 import axios from "axios";
+import { start } from "repl";
 
 type Shape =
   | {
@@ -62,9 +63,7 @@ export async function Draw(
     clicked = false;
     const width = e.clientX - startX;
     const height = e.clientY - startY;
-    // const selectedTool = window.selectedTool;
     let shape: Shape | null = null;
-    // if (selectedTool === "rect") {
     shape = {
       type: "rect",
       x: startX,
@@ -72,7 +71,7 @@ export async function Draw(
       width,
       height,
     };
-    // }
+
     if (!shape) {
       return;
     }
