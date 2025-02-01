@@ -25,7 +25,7 @@ export function Canvas({
   useEffect(() => {
     if (canvasRef.current) {
       const g = new Game(canvasRef.current, roomId, socket);
-      // Draw(canvasRef.current, roomId, socket);
+      setGame(g);
 
       return () => {
         g.destroy();
