@@ -1,6 +1,4 @@
 "use client";
-
-import { Draw } from "@/canvasLogic/draw";
 import { Game } from "@/canvasLogic/games";
 import { Circle, Pencil, RectangleHorizontalIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -37,7 +35,7 @@ export function Canvas({
   const height = window.innerHeight;
 
   return (
-    <div className=" ">
+    <div>
       <ToolBar setselectedTool={setselectedTool} selectedTool={selectedTool} />
       <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>

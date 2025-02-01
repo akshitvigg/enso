@@ -31,7 +31,7 @@ export class Game {
   private clicked: boolean;
   private startX = 0;
   private startY = 0;
-  private selectedTool: ToolsType = "circle";
+  private selectedTool: ToolsType = "rect";
 
   socket: WebSocket;
 
@@ -61,7 +61,6 @@ export class Game {
 
   async init() {
     this.existingShapes = await getExistingShapes(this.roomId);
-    console.log(this.existingShapes);
     this.clearCanvas();
   }
 
@@ -87,7 +86,6 @@ export class Game {
         this.ctx.strokeStyle = "rgba(255, 255, 255)";
         this.ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
       } else if (shape.type === "circle") {
-        console.log(shape);
         this.ctx.beginPath();
         this.ctx.arc(
           shape.centerX,
@@ -155,7 +153,6 @@ export class Game {
       this.clearCanvas();
       this.ctx.strokeStyle = "rgba(255, 255, 255)";
       const selectedTool = this.selectedTool;
-      console.log(selectedTool);
       if (selectedTool === "rect") {
         this.ctx.strokeRect(this.startX, this.startY, width, height);
       } else if (selectedTool === "circle") {
