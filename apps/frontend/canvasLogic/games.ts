@@ -18,6 +18,15 @@ type Shape =
   | {
       type: "pencil";
       points: { x: number; y: number }[];
+    }
+  | {
+      type: "triangle";
+      x1: number;
+      y1: number;
+      x2: number;
+      y2: number;
+      x3: number;
+      y3: number;
     };
 
 export class Game {
@@ -50,7 +59,7 @@ export class Game {
     this.canvas.removeEventListener("mousemove", this.mouseMoveHandler);
   }
 
-  setTool(tool: "circle" | "pencil" | "rect") {
+  setTool(tool: "circle" | "pencil" | "rect" | "triangle") {
     this.selectedTool = tool;
   }
 
@@ -101,6 +110,13 @@ export class Game {
 
         this.ctx.stroke();
         this.ctx.closePath();
+      } else if (shape.type === "triangle") {
+        this.ctx.beginPath();
+        this.ctx.moveTo(shape.x1, shape.y1);
+        this.ctx.lineTo(shape.x2, shape.y2);
+        this.ctx.lineTo(shape.x3, shape.y3);
+        this.ctx.closePath();
+        this.ctx.stroke();
       }
     });
   }
@@ -146,6 +162,18 @@ export class Game {
       };
     } else if (this.selectedTool === "pencil") {
       shape = this.existingShapes[this.existingShapes.length - 1];
+    } else if (this.selectedTool === "triangle") {
+      const midX = this.startX + width / 2;
+
+      shape = {
+        type: "triangle",
+        x1: midX,
+        y1: this.startY,
+        x2: this.startX,
+        y2: this.startY + height,
+        x3: this.startX + width,
+        y3: this.startY + height,
+      };
     }
 
     if (!shape) return;
@@ -198,6 +226,15 @@ export class Game {
         this.ctx.arc(centerX, centerY, Math.abs(radius), 0, Math.PI * 2);
         this.ctx.stroke();
         this.ctx.closePath();
+      } else if (this.selectedTool === "triangle") {
+        const midX = this.startX + width / 2;
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(midX, this.startY);
+        this.ctx.lineTo(this.startX, this.startY + height);
+        this.ctx.lineTo(this.startX + width, this.startY + height);
+        this.ctx.closePath();
+        this.ctx.stroke();
       }
     }
   };

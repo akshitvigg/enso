@@ -1,9 +1,14 @@
 "use client";
 import { Game } from "@/canvasLogic/games";
-import { Circle, Pencil, RectangleHorizontalIcon } from "lucide-react";
+import {
+  Circle,
+  Pencil,
+  RectangleHorizontalIcon,
+  Triangle,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export type ToolsType = "rect" | "circle" | "pencil";
+export type ToolsType = "rect" | "circle" | "pencil" | "triangle";
 
 export function Canvas({
   roomId,
@@ -73,6 +78,15 @@ function ToolBar({
             onClick={() => setselectedTool("pencil")}
           >
             <Pencil color={`${selectedTool === "pencil" ? "red" : "white"}`} />
+          </div>
+          <div
+            className={`p-2 hover:bg-gray-600`}
+            color={`${selectedTool === "triangle" ? "red" : "white"}`}
+            onClick={() => setselectedTool("triangle")}
+          >
+            <Triangle
+              color={`${selectedTool === "triangle" ? "red" : "white"}`}
+            />
           </div>
         </div>
       </div>
