@@ -9,7 +9,7 @@ export function SocketCanvas({ roomId }: { roomId: string }) {
 
   useEffect(() => {
     const ws = new WebSocket(
-      `${WS_URL}?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNGNjYjVjZC1jNjIwLTRkNjQtODBiNy05OTI3NmNkNmZhMGQiLCJpYXQiOjE3MzgxNjgyMTd9.w5uAuMYY1R709Lut6vLHp1PDQRnhlFqQLVOZ2BT4GBU`
+      `${WS_URL}?token=${localStorage.getItem("token")}`
     );
 
     ws.onopen = () => {
@@ -23,7 +23,7 @@ export function SocketCanvas({ roomId }: { roomId: string }) {
   }, []);
 
   if (!socket) {
-    return <div> connecting to server....</div>;
+    return <div> connecting to server.... {localStorage.getItem("token")}</div>;
   }
 
   return (
