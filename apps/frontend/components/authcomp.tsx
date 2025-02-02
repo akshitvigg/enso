@@ -1,5 +1,4 @@
 "use client";
-import { Input } from "@repo/ui/input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
@@ -38,13 +37,57 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
     localStorage.setItem("token", res.data.token);
   }
   return (
-    <div className=" text-black h-screen items-center justify-center flex">
+    <div className=" h-screen items-center justify-center flex">
       <div className=" h-96 w-96 border rounded-xl border-neutral-800">
         <div className=" flex justify-center">
-          <div className=" ">
-            <Input reference={emailInputRef} placeholder="email" />
-            <Input reference={passInputRef} placeholder="password" />
-            {isSignup && <Input reference={nameInputRef} placeholder="name" />}
+          <div>
+            {/* email */}
+            <div className=" mt-16  flex justify-center">
+              <div>
+                <label className="text-sm" htmlFor="email">
+                  Email
+                </label>{" "}
+                <br />
+                <input
+                  id="email"
+                  className=" rounded-lg border outline-none  py-2 px-10 border-neutral-700 bg-[#27272a]"
+                  ref={emailInputRef}
+                  placeholder="demo@gmail.com"
+                />
+              </div>
+            </div>
+            {/* pass */}
+            <div className=" mt-2 flex justify-center">
+              <div>
+                <label className=" text-sm" htmlFor="pass">
+                  Password
+                </label>
+                <br />
+                <input
+                  id="pass"
+                  className="  rounded-lg border outline-none  py-2 px-10 border-neutral-700 bg-[#27272a]"
+                  ref={passInputRef}
+                  placeholder="password"
+                />
+              </div>
+            </div>
+            {/* name */}
+            {isSignup && (
+              <div className="mt-2 flex justify-center">
+                <div>
+                  <label className="text-sm" htmlFor="name">
+                    Name
+                  </label>{" "}
+                  <br />
+                  <input
+                    id="name"
+                    className="border  rounded-lg outline-none py-2 px-10 border-neutral-700 bg-[#27272a]"
+                    ref={nameInputRef}
+                    placeholder="Sakamoto Taro"
+                  />
+                </div>
+              </div>
+            )}
             <button
               className=" text-white"
               onClick={() => {

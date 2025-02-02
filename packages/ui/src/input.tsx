@@ -9,7 +9,7 @@ export function Input({ placeholder, reference }: InputProps) {
       <input
         type="text"
         placeholder={placeholder}
-        className=" outline-none"
+        className=" p-7 outline-none"
         ref={reference}
       />
     </div>
