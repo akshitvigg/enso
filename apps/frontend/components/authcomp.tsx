@@ -1,5 +1,7 @@
 "use client";
+import { geistSans } from "@/app/layout";
 import axios from "axios";
+import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
@@ -36,36 +38,40 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
     alert("user signed in" + res.data.token);
     localStorage.setItem("token", res.data.token);
   }
+
   return (
-    <div className=" h-screen items-center justify-center flex">
-      <div className=" h-96 w-96 border rounded-xl border-neutral-800">
+    <div className="  h-screen items-center justify-center flex">
+      <div className=" h-[440px] w-96 border rounded-xl border-neutral-800">
         <div className=" flex justify-center">
           <div>
             {/* email */}
-            <div className=" mt-16  flex justify-center">
+            <p className=" text-2xl flex justify-center mt-8 font-bold">
+              Welcome to Enso
+            </p>
+            <div className=" mt-6  flex justify-center">
               <div>
-                <label className="text-sm" htmlFor="email">
+                <label className=" font-semibold text-sm" htmlFor="email">
                   Email
-                </label>{" "}
+                </label>
                 <br />
                 <input
                   id="email"
-                  className=" rounded-lg border outline-none  py-2 px-10 border-neutral-700 bg-[#27272a]"
+                  className=" mt-1 rounded-lg border outline-none  py-2 px-10 border-neutral-700 bg-[#27272a]"
                   ref={emailInputRef}
-                  placeholder="demo@gmail.com"
+                  placeholder="demo@example.com"
                 />
               </div>
             </div>
             {/* pass */}
             <div className=" mt-2 flex justify-center">
               <div>
-                <label className=" text-sm" htmlFor="pass">
+                <label className=" font-semibold text-sm" htmlFor="pass">
                   Password
                 </label>
                 <br />
                 <input
                   id="pass"
-                  className="  rounded-lg border outline-none  py-2 px-10 border-neutral-700 bg-[#27272a]"
+                  className=" mt-1 rounded-lg border outline-none  py-2 px-10 border-neutral-700 bg-[#27272a]"
                   ref={passInputRef}
                   placeholder="password"
                 />
@@ -75,27 +81,30 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
             {isSignup && (
               <div className="mt-2 flex justify-center">
                 <div>
-                  <label className="text-sm" htmlFor="name">
+                  <label className="font-semibold text-sm" htmlFor="name">
                     Name
-                  </label>{" "}
+                  </label>
                   <br />
                   <input
                     id="name"
-                    className="border  rounded-lg outline-none py-2 px-10 border-neutral-700 bg-[#27272a]"
+                    className="border mt-1  rounded-lg outline-none py-2 px-10 border-neutral-700 bg-[#27272a]"
                     ref={nameInputRef}
                     placeholder="Sakamoto Taro"
                   />
                 </div>
               </div>
             )}
-            <button
-              className=" text-white"
-              onClick={() => {
-                isSignup ? signup() : signin();
-              }}
-            >
-              {isSignup ? "sign up" : "sign in"}
-            </button>
+            {/* btn */}
+            <div className=" flex justify-center">
+              <button
+                className=" text-md mt-7 py-2.5 px-32  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] text-white"
+                onClick={() => {
+                  isSignup ? signup() : signin();
+                }}
+              >
+                {isSignup ? "Sign up" : "Sign in"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
