@@ -1,7 +1,5 @@
 "use client";
-import { geistSans } from "@/app/layout";
 import axios from "axios";
-import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
@@ -95,7 +93,7 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
             {/* btn */}
             <div className="pb-12 flex justify-center">
               <button
-                className=" text-md mt-7 py-2.5 px-32  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] text-white"
+                className=" transition-all duration-200 text-md mt-7 py-2.5 px-32  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] text-white"
                 onClick={() => {
                   isSignup ? signup() : signin();
                 }}

@@ -95,7 +95,6 @@ app.post("/createroom", auth, async (req, res) => {
         adminId: userId || "",
       },
     });
-    console.log("dsd");
 
     res.json({
       roomid: room.id,
