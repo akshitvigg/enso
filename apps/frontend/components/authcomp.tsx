@@ -33,15 +33,13 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
       email,
       password,
     });
-
-    console.log(res.data);
     alert("user signed in" + res.data.token);
     localStorage.setItem("token", res.data.token);
   }
 
   return (
     <div className="  h-screen items-center justify-center flex">
-      <div className=" h-[440px] w-96 border rounded-xl border-neutral-800">
+      <div className="  w-96 border rounded-xl border-neutral-800">
         <div className=" flex justify-center">
           <div>
             {/* email */}
@@ -95,7 +93,7 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
               </div>
             )}
             {/* btn */}
-            <div className=" flex justify-center">
+            <div className="pb-12 flex justify-center">
               <button
                 className=" text-md mt-7 py-2.5 px-32  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] text-white"
                 onClick={() => {
