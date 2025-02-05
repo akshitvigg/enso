@@ -33,6 +33,7 @@ export default function CreateRoom() {
       router.push(`/canvas/${roomid}`);
     }
   }, [roomid, router]);
+
   return (
     <div className=" items-center h-screen flex justify-center">
       <div>
