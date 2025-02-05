@@ -41,7 +41,11 @@ export function Canvas({
 
   return (
     <div>
-      <ToolBar setselectedTool={setselectedTool} selectedTool={selectedTool} />
+      <ToolBar
+        roomId={roomId}
+        setselectedTool={setselectedTool}
+        selectedTool={selectedTool}
+      />
       <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>
   );
@@ -50,13 +54,18 @@ export function Canvas({
 function ToolBar({
   setselectedTool,
   selectedTool,
+  roomId,
 }: {
   selectedTool: ToolsType;
   setselectedTool: (s: ToolsType) => void;
+  roomId: any;
 }) {
   return (
     <div className=" flex justify-center">
-      <div className=" bg-gray-900 p-1 rounded-lg fixed w-72  top-6">
+      <div className=" p-3 bg-[#27272a] rounded-lg top-6 left-3 fixed">
+        Room ID : {roomId}
+      </div>
+      <div className=" bg-[#27272a]  p-1 rounded-lg fixed w-72  top-6">
         <div className="gap-8  flex justify-center">
           <div
             onClick={() => setselectedTool("rect")}
