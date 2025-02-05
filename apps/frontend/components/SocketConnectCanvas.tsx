@@ -23,7 +23,7 @@ export function SocketCanvas({ roomId }: { roomId: string }) {
   }, []);
 
   if (!socket) {
-    return <div> connecting to server.... {localStorage.getItem("token")}</div>;
+    return <div> connecting to server....</div>;
   }
 
   return (
