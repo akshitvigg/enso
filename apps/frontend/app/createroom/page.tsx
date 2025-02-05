@@ -2,11 +2,13 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export default function CreateRoom() {
   const roomnameRef = useRef<HTMLInputElement>(null);
   const [roomid, setroomid] = useState("");
+  const router = useRouter();
 
   async function getroomid() {
     localStorage.getItem("token");
@@ -25,6 +27,12 @@ export default function CreateRoom() {
     setroomid(res.data.roomid);
     alert(res.data.roomid);
   }
+
+  useEffect(() => {
+    if (roomid) {
+      router.push(`/canvas/${roomid}`);
+    }
+  }, [roomid, router]);
   return (
     <div className=" items-center h-screen flex justify-center">
       <div>
@@ -45,9 +53,6 @@ export default function CreateRoom() {
           </button>
         </div>
       </div>
-      <Link className=" cursor-pointer" href={`/canvas/${roomid}`}>
-        {roomid}
-      </Link>
     </div>
   );
 }
