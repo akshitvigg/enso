@@ -122,14 +122,18 @@ export class Game {
   }
 
   mouseDownHandler = (e: MouseEvent) => {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
     this.clicked = true;
-    this.startX = e.clientX;
-    this.startY = e.clientY;
+    this.startX = x;
+    this.startY = y;
 
     if (this.selectedTool === "pencil") {
       const shape: Shape = {
         type: "pencil",
-        points: [{ x: e.clientX, y: e.clientY }],
+        points: [{ x, y }],
       };
       this.existingShapes.push(shape);
     }
