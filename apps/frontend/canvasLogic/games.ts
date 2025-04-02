@@ -123,13 +123,16 @@ export class Game {
 
   mouseDownHandler = (e: MouseEvent) => {
     this.clicked = true;
-    this.startX = e.clientX;
-    this.startY = e.clientY;
+
+    const rect = this.canvas.getBoundingClientRect();
+
+    this.startX = e.clientX - rect.left;
+    this.startY = e.clientY - rect.top;
 
     if (this.selectedTool === "pencil") {
       const shape: Shape = {
         type: "pencil",
-        points: [{ x: e.clientX, y: e.clientY }],
+        points: [{ x: this.startX, y: this.startY }],
       };
       this.existingShapes.push(shape);
     }
@@ -139,8 +142,12 @@ export class Game {
     if (!this.clicked) return;
     this.clicked = false;
 
-    const width = e.clientX - this.startX;
-    const height = e.clientY - this.startY;
+    const rect = this.canvas.getBoundingClientRect();
+    const endX = e.clientX - rect.left;
+    const endY = e.clientY - rect.top;
+
+    const width = endX - this.startX;
+    const height = endY - this.startY;
 
     let shape: Shape | null = null;
 
@@ -196,10 +203,14 @@ export class Game {
   mouseMoveHandler = (e: MouseEvent) => {
     if (!this.clicked) return;
 
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
     if (this.selectedTool === "pencil") {
       const lastShape = this.existingShapes[this.existingShapes.length - 1];
       if (lastShape.type === "pencil") {
-        lastShape.points.push({ x: e.clientX, y: e.clientY });
+        lastShape.points.push({ x, y });
 
         this.ctx.beginPath();
         this.ctx.strokeStyle = "rgba(255, 255, 255)";
@@ -207,13 +218,13 @@ export class Game {
           lastShape.points[lastShape.points.length - 2].x,
           lastShape.points[lastShape.points.length - 2].y
         );
-        this.ctx.lineTo(e.clientX, e.clientY);
+        this.ctx.lineTo(x, y);
         this.ctx.stroke();
         this.ctx.closePath();
       }
     } else {
-      const width = e.clientX - this.startX;
-      const height = e.clientY - this.startY;
+      const width = x - this.startX;
+      const height = y - this.startY;
       this.clearCanvas();
 
       if (this.selectedTool === "rect") {
