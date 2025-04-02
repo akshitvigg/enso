@@ -30,9 +30,9 @@ export default function CreateRoom() {
     alert(res.data.roomid);
   }
 
-  // function join () {
-  //   router.push(`/canvas/${ro}`)
-  // }
+  function join() {
+    router.push(`/canvas/${roomnameRef.current?.value}`);
+  }
 
   useEffect(() => {
     if (roomid) {
@@ -53,7 +53,10 @@ export default function CreateRoom() {
                 choice === "create" ? "enter room name" : "enter room id"
               }
             />
-            <button className="transition-all duration-200 text-md mt-7 py-2 px-10 ml-2  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b]">
+            <button
+              onClick={choice === "create" ? getroomid : join}
+              className="transition-all duration-200 text-md mt-7 py-2 px-10 ml-2  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b]"
+            >
               {choice === "create" ? "create" : "join"}
             </button>
           </div>
@@ -63,7 +66,7 @@ export default function CreateRoom() {
             <div>
               <button
                 onClick={() => {
-                  setchoice("create"), getroomid;
+                  setchoice("create");
                 }}
                 className=" transition-all duration-200 text-md mt-7 py-2 px-[110px]  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] "
               >
@@ -73,7 +76,7 @@ export default function CreateRoom() {
             <div>
               <button
                 onClick={() => {
-                  setchoice("join"), getroomid;
+                  setchoice("join");
                 }}
                 className=" transition-all duration-200 text-md mt-7 py-2 px-[115px]  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] "
               >
