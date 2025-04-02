@@ -143,8 +143,12 @@ export class Game {
     if (!this.clicked) return;
     this.clicked = false;
 
-    const width = e.clientX - this.startX;
-    const height = e.clientY - this.startY;
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const width = x - this.startX;
+    const height = y - this.startY;
 
     let shape: Shape | null = null;
 
