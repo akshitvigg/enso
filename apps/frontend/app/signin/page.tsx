@@ -1,6 +1,6 @@
 import AuthComp from "@/components/authcomp";
 
-export default function Signup() {
+export default function Signin() {
   return (
     <div>
       <AuthComp isSignup={false} />
