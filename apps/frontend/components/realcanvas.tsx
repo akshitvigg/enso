@@ -9,7 +9,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 export type ToolsType = "rect" | "circle" | "pencil" | "triangle";
-
 export function Canvas({
   roomId,
   socket,
@@ -20,10 +19,35 @@ export function Canvas({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [game, setGame] = useState<Game>();
   const [selectedTool, setselectedTool] = useState<ToolsType>("rect");
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   useEffect(() => {
     game?.setTool(selectedTool);
   }, [selectedTool, game]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+      if (canvasRef.current) {
+        canvasRef.current.width = window.innerWidth;
+        canvasRef.current.height = window.innerHeight;
+        game?.clearCanvas(); // Redraw everything when resizing
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [game]);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -34,10 +58,7 @@ export function Canvas({
         g.destroy();
       };
     }
-  }, [canvasRef]);
-
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  }, [canvasRef, roomId, socket]);
 
   return (
     <div>
@@ -46,11 +67,20 @@ export function Canvas({
         setselectedTool={setselectedTool}
         selectedTool={selectedTool}
       />
-      <canvas ref={canvasRef} width={width} height={height}></canvas>
+      <canvas
+        ref={canvasRef}
+        width={dimensions.width}
+        height={dimensions.height}
+        style={{
+          display: "block",
+          position: "fixed",
+          top: 0,
+          left: 0,
+        }}
+      ></canvas>
     </div>
   );
 }
-
 function ToolBar({
   setselectedTool,
   selectedTool,
