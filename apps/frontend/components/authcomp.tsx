@@ -1,4 +1,5 @@
 "use client";
+import { WEB_URL } from "@/config";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
@@ -8,12 +9,13 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
   const passInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
   async function signup() {
     const email = emailInputRef.current?.value;
     const password = passInputRef.current?.value;
     const name = nameInputRef.current?.value;
 
-    const res = await axios.post("http://localhost:3002/signup", {
+    const res = await axios.post(`${WEB_URL}/signup`, {
       email,
       password,
       name,
@@ -27,7 +29,7 @@ export default function AuthComp({ isSignup }: { isSignup: boolean }) {
     const email = emailInputRef.current?.value;
     const password = passInputRef.current?.value;
 
-    const res = await axios.post("http://localhost:3002/signin", {
+    const res = await axios.post(`${WEB_URL}/signin`, {
       email,
       password,
     });

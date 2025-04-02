@@ -1,6 +1,5 @@
 import { WEB_URL } from "@/config";
 import axios from "axios";
-import { start } from "repl";
 
 type Shape =
   | {

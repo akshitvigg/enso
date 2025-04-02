@@ -1,5 +1,6 @@
 "use client";
 
+import { WEB_URL } from "@/config";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +16,7 @@ export default function CreateRoom() {
   async function getroomid() {
     localStorage.getItem("token");
     const res = await axios.post(
-      "http://localhost:3002/createroom",
+      `${WEB_URL}/createroom`,
       {
         slug: roomnameRef.current?.value,
       },
