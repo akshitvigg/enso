@@ -67,7 +67,7 @@ export default function CreateRoom() {
                 }}
                 className=" transition-all duration-200 text-md mt-7 py-2 px-[110px]  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] "
               >
-                create room
+                Create room
               </button>
             </div>
             <div>
@@ -75,7 +75,7 @@ export default function CreateRoom() {
                 onClick={() => {
                   setchoice("join"), getroomid;
                 }}
-                className=" transition-all duration-200 text-md mt-7 py-2 px-[110px]  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] "
+                className=" transition-all duration-200 text-md mt-7 py-2 px-[115px]  border-[#262626] border  rounded-lg hover:bg-[#262626]  bg-[#18181b] "
               >
                 Join Room
               </button>
