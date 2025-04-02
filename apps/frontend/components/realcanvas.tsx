@@ -9,7 +9,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 export type ToolsType = "rect" | "circle" | "pencil" | "triangle";
-
 export function Canvas({
   roomId,
   socket,
@@ -36,8 +35,26 @@ export function Canvas({
     }
   }, [canvasRef]);
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  useEffect(() => {
+    const handleResize = () => {
+      if (canvasRef.current) {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+
+        if (ctx) {
+          const savedData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+
+          ctx.putImageData(savedData, 0, 0);
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div>
@@ -46,7 +63,10 @@ export function Canvas({
         setselectedTool={setselectedTool}
         selectedTool={selectedTool}
       />
-      <canvas ref={canvasRef} width={width} height={height}></canvas>
+      <canvas
+        ref={canvasRef}
+        className="fixed top-0 left-0 w-screen h-screen"
+      ></canvas>
     </div>
   );
 }
@@ -61,15 +81,15 @@ function ToolBar({
   roomId: any;
 }) {
   return (
-    <div className=" flex justify-center">
-      <div className=" p-3 bg-[#27272a] rounded-lg top-6 left-3 fixed">
+    <div className="flex justify-center">
+      <div className="p-3 bg-[#27272a] rounded-lg top-6 left-3 fixed z-50">
         Room ID : {roomId}
       </div>
-      <div className=" bg-[#27272a]  p-1 rounded-lg fixed w-72  top-6">
-        <div className="gap-8  flex justify-center">
+      <div className="bg-[#27272a] p-1 rounded-lg fixed w-72 top-6 z-50">
+        <div className="gap-8 flex justify-center">
           <div
             onClick={() => setselectedTool("rect")}
-            className={` p-2 hover:bg-gray-600`}
+            className={`p-2 hover:bg-gray-600`}
           >
             <RectangleHorizontalIcon
               color={`${selectedTool === "rect" ? "red" : "white"}`}
@@ -83,14 +103,12 @@ function ToolBar({
           </div>
           <div
             className={`p-2 hover:bg-gray-600`}
-            color={`${selectedTool === "pencil" ? "red" : "white"}`}
             onClick={() => setselectedTool("pencil")}
           >
             <Pencil color={`${selectedTool === "pencil" ? "red" : "white"}`} />
           </div>
           <div
             className={`p-2 hover:bg-gray-600`}
-            color={`${selectedTool === "triangle" ? "red" : "white"}`}
             onClick={() => setselectedTool("triangle")}
           >
             <Triangle
