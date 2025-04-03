@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc -b",
     "start": "node dist/index.js",
-    "dev": " npm run build && npm run start"
+    "dev": "npm run build && npm run start",
+    "migrate": "cd ../../packages/db && npx prisma migrate deploy"
   },
   "dependencies": {
     "@repo/backend-common": "workspace:*",

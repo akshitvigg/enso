@@ -6,7 +6,9 @@
     "./client": "./src/index.ts"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate deploy",
+    "postinstall": "npx prisma generate"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*"
