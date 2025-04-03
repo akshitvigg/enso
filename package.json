@@ -2,9 +2,9 @@
   "name": "draw-app",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=apps/http-backend",
-    "dev": "turbo run dev --filter=apps/http-backend",
-    "start": "turbo run start --filter=apps/http-backend",
+    "build": "turbo run build --filter=http-backend",
+    "dev": "turbo run dev --filter=http-backend",
+    "start": "turbo run start --filter=http-backend",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
