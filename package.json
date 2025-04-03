@@ -1,21 +1,22 @@
 {
-  "name": "draw-app",
+  "name": "shadcn-ui-monorepo",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=http-backend",
-    "dev": "turbo run dev --filter=http-backend",
-    "start": "turbo run start --filter=http-backend",
+    "build": "turbo build",
+    "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@types/react": "^18.3.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
     "prettier": "^3.2.5",
-    "turbo": "^2.3.3",
+    "turbo": "^2.3.0",
     "typescript": "5.5.4"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@9.12.3",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }
