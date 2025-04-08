@@ -4,17 +4,23 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -b",
+    "postinstall": "prisma generate",
     "start": "node dist/index.js",
     "dev": "npm run build && npm run start"
   },
   "dependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@prisma/client": "^6.5.0",
+    "@types/dotenv": "^6.1.1",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/ws": "^8.5.13",
+    "dotenv": "^16.4.7",
     "jsonwebtoken": "^9.0.2",
-    "ws": "^8.18.0",
-    "@repo/backend-common": "workspace:*",
-    "@repo/db": "workspace:*"
+    "prisma": "^6.5.0",
+    "typescript": "^5.8.2",
+    "ws": "^8.18.0"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",

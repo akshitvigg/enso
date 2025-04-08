@@ -1,8 +1,7 @@
 import { WebSocketServer, WebSocket } from "ws";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "@repo/backend-common/config";
-import { prismaClient } from "@repo/db/client";
-
+require("dotenv").config();
+import { prismaClient } from "./prisma/src";
 const wss = new WebSocketServer({ port: 8080 });
 
 interface User {
@@ -10,12 +9,12 @@ interface User {
   rooms: string[];
   userId: string;
 }
+
 const users: User[] = [];
 
 function checkUser(token: string): string | null {
   try {
-    const decodedToken = jwt.verify(token, JWT_SECRET);
-
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
     if (typeof decodedToken === "string") {
       return null;
     }
@@ -30,20 +29,16 @@ function checkUser(token: string): string | null {
 
 wss.on("connection", (ws, request) => {
   const url = request.url;
-
   if (!url) {
     return;
   }
-
   const queryParams = new URLSearchParams(url.split("?")[1]);
   const token = queryParams.get("token");
   const userId = checkUser(token as string);
-
   if (userId === null) {
     ws.close();
     return;
   }
-
   users.push({
     userId,
     rooms: [],
@@ -74,7 +69,6 @@ wss.on("connection", (ws, request) => {
     if (parsedData.type === "chat") {
       const roomId = parsedData.roomId;
       const message = parsedData.message;
-
       await prismaClient.chat.create({
         data: {
           message,
@@ -82,7 +76,6 @@ wss.on("connection", (ws, request) => {
           userId,
         },
       });
-
       users.forEach((user) => {
         if (user.rooms.includes(roomId)) {
           user.ws.send(
@@ -94,6 +87,44 @@ wss.on("connection", (ws, request) => {
           );
         }
       });
+    }
+    if (parsedData.type === "move") {
+      const roomId = parsedData.roomId;
+      const message = parsedData.message;
+
+      try {
+        const moveData = JSON.parse(message);
+
+        await prismaClient.shapeMovement.create({
+          data: {
+            roomId: Number(roomId),
+            userId,
+            shapeIndex: moveData.index,
+            shapeData: JSON.stringify(moveData.newShape),
+          },
+        });
+
+        users.forEach((user) => {
+          if (user.rooms.includes(roomId)) {
+            user.ws.send(
+              JSON.stringify({
+                type: "move",
+                message: message,
+                roomId,
+              })
+            );
+          }
+        });
+      } catch (error) {
+        console.error("Error processing move:", error);
+      }
+    }
+  });
+
+  ws.on("close", () => {
+    const index = users.findIndex((user) => user.ws === ws);
+    if (index !== -1) {
+      users.splice(index, 1);
     }
   });
 });
